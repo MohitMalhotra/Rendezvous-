@@ -9,7 +9,7 @@
 <body>
 
 <div class="container">
-  <h2>Dynamic Pills</h2>
+  <h2>Dynamic Pills </h2>
   <ul class="nav nav-pills">
     <li class="active"><a data-toggle="pill" href="#home">Home</a></li>
     <li><a data-toggle="pill" href="#menu1">Menu 1</a></li>
