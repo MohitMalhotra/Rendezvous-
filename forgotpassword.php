@@ -27,5 +27,5 @@ if(isset($_POST['continue'])) {
 	}	
 }
 ?>
-	  </body>
-	  </html>
+</body>
+</html>

@@ -30,6 +30,7 @@ class Rendezvous {
 	
 	}
 	
+	//Haversine formual
 	public function haversineFormula($latitude1,$longitude1,$latitude2,$longitude2)
 	{
 		//Latitude and longitude 1 will be user's
@@ -54,20 +55,40 @@ class Rendezvous {
 	
 	
 	
+	// Function to check username in database
 	public function checkUsername($username) {
 		return $this->dbConnection->send_sql("SELECT * FROM user WHERE email = '$username'")->fetch_all(MYSQLI_ASSOC);
 	}
 	
+	//Function to fetch password
 	public function getPassword($username) {
 		return $this->dbConnection->send_sql("SELECT password FROM user WHERE email = '$username'")->fetch_all(MYSQLI_ASSOC);
 	}
 	
+	//Function to get security question 1 from User table
 	public function getQuestion1($username) {
 		return $this->dbConnection->send_sql("SELECT securityQuestion1 FROM user WHERE email = '$username'")->fetch_all(MYSQLI_ASSOC);
 	}
 	
+	//Function to get security question 2 from User table
 	public function getQuestion2($username) {
 		return $this->dbConnection->send_sql("SELECT securityQuestion2 FROM user WHERE email = '$username'")->fetch_all(MYSQLI_ASSOC);
+	}
+	
+	//Function to get security answer 1 from User table
+	public function getAnswer1($username) {
+		return $this->dbConnection->send_sql("SELECT answerQuestion1 FROM user WHERE email = '$username'")->fetch_all(MYSQLI_ASSOC);
+	}
+	
+	//Function to get security answer 2 from User table
+	public function getAnswer2($username) {
+		return $this->dbConnection->send_sql("SELECT answerQuestion2 FROM user WHERE email = '$username'")->fetch_all(MYSQLI_ASSOC);
+	}
+	
+	//Function to update password
+	public function updatePassword($username, $password) {
+		$this->addStatement = $this->dbConnection->prepare_statement("UPDATE user SET password='$password' WHERE email='$username'");
+		$this->addStatement->execute();
 	}
 	
 	function __destruct () {
