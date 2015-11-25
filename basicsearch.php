@@ -1,3 +1,6 @@
+<?php
+session_start(); 
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +16,18 @@
 <div class="tabs">
 <ul class="list-inline">
   <li class="active"><a href="#">Basic Search</a></li>
-  <!-- <li><a href="#" role="button" class="btn popovers" data-toggle="popover" title="" data-content="test content <a href='' title='test add link'>link on content</a>" data-original-title="test title">Meet halfway</a></li> -->
-  <li><a href="#" role="button" class="btn popovers" data-toggle="popover" title="" data-content="<a href='homepage.php' title='test add link'>homepage.php</a>" data-original-title="Login required">Meet halfway</a></li>
+  <?php
+  if(!isset($_SESSION['login'])) { 
+  ?>
+  <li><a href="#" role="button" class="btn popovers" data-toggle="popover" title="" data-content="<a href='homepage.php' title='test add link'>Login</a>" data-original-title="Login required">Meet halfway</a></li>
+  <?php
+  }
+  else {
+  ?>
+  <li><a href="#">Meet halfway</a></li>
+  <?php
+  } 
+  ?>
 </ul>
 </div>
 
@@ -27,7 +40,7 @@
 	</form>
     </div>
 	
-    <div id="tab2" class="tab">
+    <div id="tab2" class="tab2">
     <form><br><br>
 	Zip/Address#1:<input type="search" name="address1"><br><br>
 	Zip/Address#2: <input type="search" name="address2"><br><br>

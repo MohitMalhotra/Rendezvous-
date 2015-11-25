@@ -15,7 +15,7 @@ $strPwd=null;
     <div class="login">
       <h1>Login</h1>
       <form method="post" action="" name="Form">
-        <p> Username* <input type="text" id="username" name="username" value="" placeholder="Username or Email"></p>
+        <p> Email* <input type="text" id="username" name="username" value="" placeholder="Email"></p>
         <p> Password* <input type="password" id="password" name="password" value="" placeholder="Password"></p>
         <p class="remember_me">
           <label>
@@ -36,10 +36,12 @@ $strPwd=null;
 	<?php
 	//moving to basic search page for guest user
 	if(isset($_POST['withoutid'])) {
+		$_SESSION['withoutid'] = $_POST['withoutid'];
 		header("Location:basicsearch.php");
 	}
 	//checking for logged in user
 	if(isset($_POST['login'])) {
+		$_SESSION['login'] = $_POST['login'];
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 		
