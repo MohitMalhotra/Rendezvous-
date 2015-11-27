@@ -8,13 +8,21 @@ $strPwd=null;
 <head>
   <meta charset="utf-8">
   <title>Home Page</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<style type="text/css">
+	.bs-example{
+		margin: 20px;
+	}
+</style>
 </head>
 <body>
   <section class="container">
     <div class="login">
       <h1>Login</h1>
-      <form method="post" action="" name="Form">
+      <div class="form-group">
+      <form method="post" action="" name="Form" class="form-horizontal">
         <p> Email* <input type="text" id="username" name="username" value="" placeholder="Email"></p>
         <p> Password* <input type="password" id="password" name="password" value="" placeholder="Password"></p>
         <p class="remember_me">
@@ -27,7 +35,7 @@ $strPwd=null;
 		<p class="submit"><input type="submit" id="withoutid" name="withoutid" value="Continue as Guest"></p>
       </form>
     </div>
-	
+	  </div>
 
     <div class="login-help">
 		<p>Not yet registered? <a href="signup.php">Sign Up</a></p>
