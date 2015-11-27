@@ -6,15 +6,21 @@ session_start();
 <head>
   <meta charset="utf-8">
   <title>Basic Search</title>
-  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <style type="text/css">
+    .bs-example{
+        margin: 20px;
+    }
+</style>
+  
+  
 </head>
 
 <body>
-<div class="tabs">
-<ul class="list-inline">
+<div class="bs-example">
+<ul class="nav nav-tabs">
   <li class="active"><a href="#">Basic Search</a></li>
   <?php
   if(!isset($_SESSION['login'])) { 
@@ -32,19 +38,20 @@ session_start();
 </div>
 
 <div class="tab-content">
-    <div id="tab1" class="active">
-    <form method="post" action="" name="basicSearchForm" id="basicSearchForm">
-	Venue:<input type="search" name="venue" id="venue"><br><br>
-	City: <input type="search" name="city" id="city"><br><br>
+    <div id="tab1" class="tab-pane fade in active">
+    <div class="form-group">
+    <form method="post" action="" name="basicSearchForm" id="basicSearchForm" class="form-horizontal">
+	Venue:<input type="search" name="venue" id="venue" class="form-control"><br><br>
+	City: <input type="search" name="city" id="city" class="form-control"><br><br>
 	<input type="submit" name="basicSearch" id="basicSearch" value="Search"/>
 	</form>
     </div>
 	
-    <div id="tab2" class="tab2">
-    <form method="post" action="" name="meethalfwayForm" id="meethalfwayForm">
+    <div id="tab2" class="form-control">
+    <form method="post" class="form-control" class="form-control"  action="" name="meethalfwayForm" id="meethalfwayForm">
     <br><br>
-	Zip/Address#1:<input type="search" name="address1" id="address1"><br><br>
-	Zip/Address#2: <input type="search" name="address2" id="address1"><br><br>
+	Zip/Address#1:<input type="search" name="address1" class="form-control"  id="address1"><br><br>
+	Zip/Address#2: <input type="search" name="address2" class="form-control"  id="address1"><br><br>
 	
 	Radius:<select>
 	<option value="1">1 mile</option>
@@ -67,6 +74,8 @@ session_start();
 	<input type="submit" name="meethalfwaySearch" id="meethalfwaySearch" value="Search" />
 	</form>
 	</div>
+	    </div>
+	
 </div>
 <script type="text/javascript">
 $("[data-toggle=popover]")
