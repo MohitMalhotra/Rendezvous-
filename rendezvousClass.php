@@ -3,10 +3,9 @@ require_once 'connection.php';
 
 class Rendezvous {
 	private $addStatement;
+	private $insertVenueData;
 	
-	public function __construct () {
-        $this->dbConnection = new DatabaseConnection();	
-	}
+
 	# Meet halway returning Midpoint latitude and longitude
 	# Ambika Maheshwari
 	public function meetHalwayCalculation($latitude1,$longitude1,$latitude2,$longitude2)
@@ -91,9 +90,29 @@ class Rendezvous {
 		$this->addStatement->execute();
 	}
 	
+	public function insertVenue($result)
+	{
+		for($i=0;i<sizeOf($result);$i++)
+		{
+			$this->insertVenueData->bind_param ("ssddsdsssss",$result[$i]['id'],$result[$i]['name'],$result[$i]['lat'],$result[$i]['lng'],$result[$i]['address'],$result[$i]['rating'],$result[$i]['zipcode'],$result[$i]['city'],$result[$i]['state'],$result[$i]['phone'],Foursquare,$result[$i]['url']);
+			$this->insertVenueData->execute ();
+			
+		}
+		
+		
+	}	
+	public function __construct() {
+		$this->dbConnection = new DatabaseConnection ();
+		$this->insertVenueData = $this->dbConnection->prepare_statement("INSERT INTO `venue`(`venueForeignId`, `venueName`, `venueLatitude`, `venueLongitude`, `venueAddress`, `rating`, `zipcode`, `city`, `state`, `phone`, `foreignSource`, `menuURL`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);");
+		
+	}
+	
 	function __destruct () {
         if ($this->addStatement) {
             $this->addStatement->close();
+        }
+        if ($this->insertVenueData) {
+        	$this->insertVenueData->close();
         }
     }
 }

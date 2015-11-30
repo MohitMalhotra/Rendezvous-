@@ -3,6 +3,10 @@
 $client_secret = "I14SEXDCR23VH4IQSSMJ5MPDXIDUM0U4JCMG4FTLJGUNRK0R";
 $oauth_token = "34BKKF5OYKVTDBGZEWADDVHZB1NJQHZ2AEIOSOD0LRQ3T3KL";
 $version = "20151125";
+require_once 'connection.php';
+require_once 'rendezvousClass.php';
+$data = new Rendezvous();
+
 error_reporting ( E_ERROR | E_PARSE ); 
 class Foursquare {
 	
@@ -58,19 +62,45 @@ class Foursquare {
 	public function NameCityRadiusRating($name,$city,$radius,$rating) {
 		
 		$radius_new = $radius * 1609.34;
-	
-		$resultnamecityrr = array();
+		
+		$result = array();
 		$url = "https://api.foursquare.com/v2/venues/explore?query=$name&radius=$radius_new&near=$city&oauth_token=34BKKF5OYKVTDBGZEWADDVHZB1NJQHZ2AEIOSOD0LRQ3T3KL&v=20151125&sortByDistance=1";
 		$resp_oauthtoken = file_get_contents ($url);
 		$obj = json_decode ( $resp_oauthtoken, true );
 		if (floatval ( $obj ['meta'] ['code'] ) == 200) {
 			for($i = 0; $i < 30; $i ++) {
 				if (floatval ( $obj ['response'] ['groups'] ['0'] ['items'] [$i] ['venue'] ['rating'] ) >= floatval ( $rating )) {
-					array_push($resultnamecityrr,$obj ['response'] ['groups'] ['0'] ['items'] [$i] ['venue'] ['id']);
-			
+					//array_push($resultnamecityrr,$obj ['response'] ['groups'] ['0'] ['items'] [$i] ['venue'] ['id']);
+					$id = $obj ['response'] ['groups'] ['0'] ['items'] [$i] ['venue'] ['id'];
+					$name = $obj ['response'] ['groups'] ['0'] ['items'] [$i] ['venue'] ['name'];
+					$address = $obj ['response'] ['groups'] ['0'] ['items'] [$i] ['venue'] ['location']['address'];
+					$lat = $obj ['response'] ['groups'] ['0'] ['items'] [$i] ['venue'] ['location']['lat'];
+					$lng = $obj ['response'] ['groups'] ['0'] ['items'] [$i] ['venue'] ['location']['lng'];
+					$city = $obj ['response'] ['groups'] ['0'] ['items'] [$i] ['venue'] ['location']['city'];
+					$state = $obj ['response'] ['groups'] ['0'] ['items'] [$i] ['venue'] ['location']['state'];
+					$phone = $obj ['response'] ['groups'] ['0'] ['items'] [$i] ['venue'] ['contact']['formattedPhone'];
+					$rating =  $obj ['response'] ['groups'] ['0'] ['items'] [$i] ['venue'] ['rating'];
+					$url =  $obj ['response'] ['groups'] ['0'] ['items'] [$i] ['venue'] ['url'];
+					$resultnamecityrr = array (
+							"id" => $id,
+							"name" => $name,
+							"address" => $address,
+							"lat" => $lat,
+							"lng" => $lng,
+							"city" => $city,
+							"state" => $state,
+							"phone" => $phone,
+							"rating" => $rating,
+							"url"=>$url
+					);
+					array_push($result,$resultnamecityrr);
 				}
+				
 			}
-			return $resultnamecityrr;
+			
+			$data->insertVenue($result);
+			//echo $data;
+			return  $data;
 		} else
 			//return $url;
 			return "Please check the credential again !!";
