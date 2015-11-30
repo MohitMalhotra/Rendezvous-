@@ -191,12 +191,14 @@ class Foursquare {
 			for($i = 0; $i < 30; $i ++) {
 				if (floatval ( $obj ['response'] ['groups'] ['0'] ['items'] [$i] ['venue'] ['rating'] ) >= floatval ( $rating )) {
 					array_push($resultllcityrr,$obj ['response'] ['groups'] ['0'] ['items'] [$i] ['venue'] ['name']);
-						
+					//$name = 	$obj ['response'] ['groups'] ['0'] ['items'] [$i] ['venue'] ['name'];
+					//$id = $obj ['response'] ['groups'] ['0'] ['items'] [$i] ['venue'] ['id'];
+					//array_push all info in single array
 				}
 			}
 			if(sizeOf($resultllcityrr) > 1)
 			{				
-				return $resultllcityrr;
+				return $resultllcityrr; //call database function and send arrayname 
 			}
 			else
 			{
